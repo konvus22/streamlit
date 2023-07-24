@@ -1,3 +1,4 @@
+
 import streamlit as st
 import openai
 
@@ -17,11 +18,15 @@ st.markdown("""
         }
         .main .block-container {
             background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             padding: 2em;
         }
         .sidebar .sidebar-content {
             background: #F5F5F5;
+        }
+        h1 {
+            color: #5e9cd3;
         }
     </style>
     """, unsafe_allow_html=True)
@@ -50,9 +55,8 @@ Por favor, introduce tu clave API y la pregunta en los campos correspondientes y
 # Entrada de texto y botón de envío
 with st.form('my_form'):
     text = st.text_area('Introduce la pregunta:', '¿Cuáles son los tres consejos clave para aprender a programar?')
-    submitted = st.form_submit_button('Generar Respuesta')
+    submitted = st.form_submit_button('Generar Respuesta', on_click=generate_response)
 
 # Generar una respuesta si se ha enviado el formulario y la clave API es válida
 if submitted and openai_api_key.startswith('sk-'):
     generate_response(text, openai_api_key)
-
