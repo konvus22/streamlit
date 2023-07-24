@@ -25,7 +25,7 @@ if not openai_api_key.startswith('sk-'):
     st.sidebar.warning('Por favor, introduce una clave API válida de OpenAI.', icon='⚠')
 
 # Crear una columna para el título y el subtítulo
-col1, col2 = st.beta_columns(2)
+col1, col2 = st.columns(2)
 
 with col1:
     st.title('🦜🔗 Aplicación de inicio rápido')
@@ -42,3 +42,4 @@ with st.form('my_form'):
 # Generar una respuesta si se ha enviado el formulario y la clave API es válida
 if submitted and openai_api_key.startswith('sk-'):
     generate_response(text, openai_api_key)
+
