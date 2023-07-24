@@ -1,39 +1,55 @@
 import streamlit as st
 import openai
-from PIL import Image
+
+# Configuración de la página
+st.set_page_config(
+    page_title="Aplicación OpenAI",
+    page_icon="🦜🔗",
+    layout="centered",
+    initial_sidebar_state="expanded",
+)
+
+# Estilos CSS para personalizar el aspecto de la aplicación
+st.markdown("""
+    <style>
+        .reportview-container {
+            background: #F5F5F5;
+        }
+        .main .block-container {
+            background: white;
+            border-radius: 10px;
+            padding: 2em;
+        }
+        .sidebar .sidebar-content {
+            background: #F5F5F5;
+        }
+    </style>
+    """, unsafe_allow_html=True)
 
 # Función para generar respuestas con el modelo de OpenAI
 def generate_response(text_input, openai_api_key):
     llm = openai(temperatura=0.7, openai_api_key=openai_api_key)
     st.info(llm(text_input))
 
-# Definir la configuración de la página
-st.set_page_config(
-    page_title="Aplicación OpenAI",
-    page_icon="🦜🔗",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
-
-# Crear una barra lateral para la entrada de la clave API
+# Sidebar para la configuración de la aplicación
 st.sidebar.title("Configuración de la Aplicación")
 st.sidebar.markdown("### Clave API OpenAI")
 openai_api_key = st.sidebar.text_input('Introduce tu clave', type='password')
 
 # Comprobar si la clave API es válida
 if not openai_api_key.startswith('sk-'):
-    st.sidebar.warning('Por favor, introduce una clave API válida de OpenAI.', icon='⚠')
+    st.sidebar.warning('Por favor, introduce una clave API válida de OpenAI.')
 
-# Crear una columna para el título y el subtítulo
-col1, col2 = st.columns(2)
+# Título y descripción de la aplicación
+st.title('🦜🔗 Aplicación de inicio rápido')
+st.markdown("""
+Esta aplicación genera respuestas a las preguntas introducidas utilizando la API de OpenAI. 
+Por favor, introduce tu clave API y la pregunta en los campos correspondientes y pulsa el botón 'Generar Respuesta'.
+""")
 
-with col1:
-    st.title('🦜🔗 Aplicación de inicio rápido')
-
-# Crear una entrada para el texto
-st.markdown("### Por favor, introduce el texto a continuación")
+# Entrada de texto y botón de envío
 with st.form('my_form'):
-    text = st.text_area('Texto:', '¿Cuáles son los tres consejos clave para aprender a programar?')
+    text = st.text_area('Introduce la pregunta:', '¿Cuáles son los tres consejos clave para aprender a programar?')
     submitted = st.form_submit_button('Generar Respuesta')
 
 # Generar una respuesta si se ha enviado el formulario y la clave API es válida
