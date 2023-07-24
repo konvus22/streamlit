@@ -30,9 +30,6 @@ col1, col2 = st.columns(2)
 with col1:
     st.title('🦜🔗 Aplicación de inicio rápido')
 
-with col2:
-    st.image(Image.open('openai_logo.png'), use_column_width=True)  # Asegúrate de tener la imagen 'openai_logo.png' en tu directorio
-
 # Crear una entrada para el texto
 st.markdown("### Por favor, introduce el texto a continuación")
 with st.form('my_form'):
